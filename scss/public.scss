@@ -44,18 +44,206 @@ html {
     color: rgba(50, 50, 50, 0.8);
 
     @include font-smoothing(antialiased);
+  }
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(133, 204, 220, 1.00);
+  overflow: hidden;
+
+  .balloon1 {
+    position: absolute;
+    top: 70px;
+    right: 130px;
+    display: inline-block;
+    width: 115px;
+    height: 193px;
+    background: image-url('balloon1.png', false, false);
+    @include animation(balloon1 6s);
+  }
+  .balloon2 {
+    position: absolute;
+    top: 48px;
+    right: 66px;
+    display: inline-block;
+    width: 48px;
+    height: 66px;
+    background: image-url('balloon2.png', false, false);
+    @include animation(balloon2 6s);
+  }
+  
+  .island {
+    position: absolute;
+    left: 0;
+    bottom: 50px;
+    display: inline-block;
+    width: 632px;
+    height: 509px;
+    background: image-url('island.png', false, false);
+    @include animation(island 6s);
+  }
+  .ferry {
+    position: absolute;
+    right: 0;
+    bottom: 50px;
+    display: inline-block;
+    width: 562px;
+    height: 447px;
+    background: image-url('ferry.png', false, false);
+    @include animation(ferry 2s infinite, ferry_go 5s);
+  }
+  .wave1, .wave2 {
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    display: inline-block;
+    width: calc(100% + 50px * 2);
+    height: 100px;
     
-    #container {
-      position: relative;
-      display: block;
-      margin: 0 auto;
-      max-width: $mainWidth;
+    &:after {
+      content: '';
+      position: absolute;
+      top: -25px;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: 25px;
+    }
+  }
+  .wave1 {
+    background: rgba(197, 230, 239, 1.00);
+    @include animation(wave1 1.5s infinite);
 
-      padding: 0 10px;
+    &:after {
+      background: image-url('wave1.png', false, false);
+    }
+  }
+  .wave2 {
+    left: -5px;
+    background: rgba(44, 107, 164, 1.00);
 
-      @media screen and (min-width: #{$mainWidth}) {
-        padding: 0;
-      }
+    @include animation(wave2 1.5s infinite);
+    &:after {
+      background: image-url('wave2.png', false, false);
     }
   }
 }
+
+
+@include keyframes(balloon2){
+  0% {
+    top: -48px;
+    right: -66px;
+  }
+  50% {
+    top: -48px;
+    right: -66px;
+    @include rotate(10deg);
+  }
+  70% {
+    @include rotate(-20deg);
+  }
+  100% {
+    top: 48px;
+    right: 66px;
+    @include rotate(0);
+  }
+}
+@include keyframes(balloon1){
+  0% {
+    top: -70px;
+    right: -130px;
+  }
+  50% {
+    top: -70px;
+    right: -130px;
+    @include rotate(10deg);
+  }
+  70% {
+    @include rotate(-20deg);
+  }
+  100% {
+    top: 70px;
+    right: 130px;
+    @include rotate(0);
+  }
+}
+@include keyframes(island){
+  0% {
+    left: -640px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@include keyframes(ferry){
+  0% {
+    bottom: 50px;
+  }
+  50% {
+    bottom: 40px;
+  }
+  100% {
+    bottom: 50px;
+  }
+}
+@include keyframes(ferry_go){
+  0% {
+    right: -600px;
+    @include rotate(10deg);
+  }
+  50% {
+    @include rotate(0deg);
+  }
+  70% {
+    right: -10px;
+    @include rotate(3deg);
+  }
+  100% {
+    right: 0;
+    @include rotate(0);
+  }
+}
+@include keyframes(wave2){
+  0% {
+    bottom: -50px;
+  }
+  50% {
+    bottom: -60px;
+  }
+  100% {
+    bottom: -50px;
+  }
+}
+@include keyframes(wave1){
+  0% {
+    bottom: -50px;
+  }
+  50% {
+    bottom: -40px;
+  }
+  100% {
+    bottom: -50px;
+  }
+}
+
+// @include keyframes(wave2){
+//   @for $i from 1 through 100 {
+//     #{$i}% {
+//       left: -30px + sin(pi()/180 * $i * 3.6) * 10px;
+//       height: 10px + cos(pi()/180 * $i * 3.6) * 10px;
+//     }
+//   }
+// }
+// @include keyframes(wave1){
+//   @for $i from 1 through 100 {
+//     #{$i}% {
+//       left: -30px - sin(pi()/180 * $i * 3.6) * 10px;
+//       height: 10px + cos(pi()/180 * $i * 3.6) * 10px;
+//     }
+//   }
+// }
